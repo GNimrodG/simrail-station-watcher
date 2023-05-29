@@ -122,6 +122,7 @@ function App() {
           <Grid item md={8} xs={11}>
             <Autocomplete
               multiple
+              disableClearable
               disabled={Notification.permission !== "granted"}
               options={data.data.map(x => x.Name)}
               renderInput={(params) => <TextField {...params} label="Watched stations" />}
