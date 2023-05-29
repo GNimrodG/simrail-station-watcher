@@ -1,8 +1,9 @@
-import { Map } from "@mui/icons-material";
 import { ServersResponse, StationResponse } from "./types.ts";
 import { useEffect, useRef } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import { useQuery } from "@tanstack/react-query";
+
+// MUI Components
 import Alert from "@mui/material/Alert";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -16,6 +17,8 @@ import StationCard from "./components/StationCard.tsx";
 import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 
+// Icons
+import MapIcon from "@mui/icons-material/Map";
 
 async function getStationData(serverCode: string): Promise<StationResponse> {
   const response = await fetch(`https://panel.simrail.eu:8084/stations-open?serverCode=${serverCode}`);
@@ -43,15 +46,15 @@ function App() {
 
   useEffect(() => {
     if (!("Notification" in window)) {
-      alert("This browser does not support desktop notification");
+      alert("This browser does not support desktop notifications!");
     } else if (Notification.permission !== "denied") {
       Notification.requestPermission().then((permission) => {
         if (permission !== "granted") {
-          alert("You have denied desktop notification");
+          alert("You have denied desktop notifications! Station free notifications will not work.");
         }
       });
     } else {
-      alert("You have denied desktop notification");
+      alert("You have denied desktop notifications! Station free notifications will not work.");
     }
   }, []);
 
@@ -126,7 +129,7 @@ function App() {
           <Grid item xs={1}>
             <Tooltip title="Open the Live map for the server">
               <IconButton href={`https://map.simrail.app/server/${selectedServer}`} target="_blank">
-                <Map />
+                <MapIcon />
               </IconButton>
             </Tooltip>
           </Grid>
