@@ -45,6 +45,8 @@ function App() {
   });
 
   useEffect(() => {
+    document.getElementById("loading-style")?.remove();
+
     if (!("Notification" in window)) {
       alert("This browser does not support desktop notifications!");
     } else if (Notification.permission !== "denied") {
@@ -111,7 +113,7 @@ function App() {
             onChange={(_e, v) => setSelectedServer(v || "en1")}
             renderInput={(params) => <TextField {...params} label="Server" />} />
         </Grid>
-        {!data && <Grid item><CircularProgress size={72} /></Grid>}
+        {!data && <Grid item xs={12}><CircularProgress size={72} /></Grid>}
         {(data && !data.result) && <Grid item>
           <span>Something went wrong</span>
           <Alert severity="error">{data.description}</Alert>

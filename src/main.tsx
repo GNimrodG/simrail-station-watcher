@@ -58,5 +58,3 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <Analytics />
   </React.StrictMode>,
 );
-
-document.getElementById("loading-style")?.remove();
