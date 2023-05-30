@@ -33,6 +33,8 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 
   environment: import.meta.env.MODE,
+
+  denyUrls: [/localhost/],
 });
 
 const queryClient = new QueryClient();

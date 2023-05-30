@@ -20,14 +20,25 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import WarningIcon from "@mui/icons-material/Warning";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import EyeIcon from "@mui/icons-material/Visibility";
+import EyeOffIcon from "@mui/icons-material/VisibilityOff";
+import ScheduleIcon from "@mui/icons-material/EventNote";
+import { edrMap } from "../edr-mapping";
 
 export interface StationCardProps {
+    station: Station;
+    serverCode: string;
+
     isFavorite: boolean;
     onFavoriteToggle: (stationName: string) => void;
-    station: Station;
+
+    isWatched: boolean;
+    onWatchedToggle: (stationName: string) => void;
 }
 
-const StationCard: FunctionComponent<StationCardProps> = ({ station, isFavorite, onFavoriteToggle }) => {
+const StationCard: FunctionComponent<StationCardProps> = ({ station, serverCode, isFavorite, onFavoriteToggle, isWatched, onWatchedToggle }) => {
+    const edrLink = `https://edr.simrail.app/${serverCode}/station/${edrMap.get(station.Prefix) || station.Prefix.toUpperCase()}`;
+
     return <Card sx={{ width: 276 }}>
         <CardHeader
             sx={{
@@ -48,8 +59,24 @@ const StationCard: FunctionComponent<StationCardProps> = ({ station, isFavorite,
         <CardMedia component="img" image={station.MainImageURL} />
         <CardContent>
             <Grid container spacing={1} justifyContent="center" alignItems="center">
-                <Grid item>
-                    <Rating value={station.DifficultyLevel} emptyIcon={<WarningAmberIcon />} icon={<WarningIcon />} readOnly></Rating>
+                <Grid item xs={12} container justifyContent="space-between" alignItems="center">
+                    <Grid item>
+                        <Tooltip title="Difficulty">
+                            <Rating value={station.DifficultyLevel} emptyIcon={<WarningAmberIcon />} icon={<WarningIcon />} readOnly></Rating>
+                        </Tooltip>
+                    </Grid>
+                    <Grid item container spacing={1} xs={5} justifyContent="flex-end">
+                        <Grid item>
+                            <Tooltip title={isWatched ? "Stop watching this station" : "Start watching this station"}>
+                                <IconButton onClick={() => onWatchedToggle(station.Name)} color={isWatched ? "success" : "error"}>{isWatched ? <EyeIcon /> : <EyeOffIcon />}</IconButton>
+                            </Tooltip>
+                        </Grid>
+                        <Grid item>
+                            <Tooltip title="Open EDR for this station">
+                                <IconButton href={edrLink} target="_blank"><ScheduleIcon /></IconButton>
+                            </Tooltip>
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Grid item xs={10}>
                     <Alert severity={station.DispatchedBy.length ? "error" : "success"}>{station.DispatchedBy.length ? "Occupied" : "Free"}</Alert>

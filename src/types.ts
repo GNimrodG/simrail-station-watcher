@@ -25,12 +25,12 @@ export interface DispatchedBy {
 
 export interface ServersResponse {
   result: boolean;
-  data: Station[];
+  data: Server[];
   count: number;
   description: string;
 }
 
-export interface Station {
+export interface Server {
   ServerCode: string;
   ServerName: string;
   ServerRegion: ServerRegion;
