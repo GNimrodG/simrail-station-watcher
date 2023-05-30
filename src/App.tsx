@@ -1,7 +1,8 @@
-import { Server, ServersResponse, StationResponse } from "./types.ts";
 import { useEffect, useRef } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import { useQuery } from "@tanstack/react-query";
+import { Server, ServersResponse, StationResponse } from "./types.ts";
+import Loader from "./components/Loader.tsx";
 
 // MUI Components
 import Alert from "@mui/material/Alert";
@@ -15,11 +16,11 @@ import Slider from "@mui/material/Slider";
 import StationCard from "./components/StationCard.tsx";
 import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 
 // Icons
 import MapIcon from "@mui/icons-material/Map";
-import Typography from "@mui/material/Typography";
-import Loader from "./components/Loader.tsx";
+import { getStationEDRLink } from "./edr-mapping.ts";
 
 async function getStationData(serverCode: string): Promise<StationResponse> {
   const response = await fetch(`https://panel.simrail.eu:8084/stations-open?serverCode=${serverCode}`);
@@ -75,15 +76,17 @@ function App() {
 
           // only available in secure context
           notification.addEventListener("close", () => {
-            console.log("closed");
+            console.log("closed", station.Name);
             delete stationNotifications.current[station.Name];
+            setWatchedStations((stations) => stations.filter((x) => x !== station.Name));
+            window.open(getStationEDRLink(station, selectedServer?.ServerCode || "en1"), "_blank");
           });
 
           stationNotifications.current[station.Name] = notification;
         }
       });
     }
-  }, [data, watchedStations, selectedServer]);
+  }, [data, watchedStations, selectedServer, setWatchedStations]);
 
   function toggleFavorite(station: string) {
     setFavoriteStations(stations =>

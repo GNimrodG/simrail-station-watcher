@@ -1,5 +1,6 @@
-import { Station } from "../types";
 import { type FunctionComponent } from "react";
+import { Station } from "../types";
+import { getStationEDRLink } from "../edr-mapping";
 
 // MUI Components
 import Alert from "@mui/material/Alert";
@@ -23,7 +24,6 @@ import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import EyeIcon from "@mui/icons-material/Visibility";
 import EyeOffIcon from "@mui/icons-material/VisibilityOff";
 import ScheduleIcon from "@mui/icons-material/EventNote";
-import { edrMap } from "../edr-mapping";
 
 export interface StationCardProps {
     station: Station;
@@ -35,9 +35,8 @@ export interface StationCardProps {
     isWatched: boolean;
     onWatchedToggle: (stationName: string) => void;
 }
-
 const StationCard: FunctionComponent<StationCardProps> = ({ station, serverCode, isFavorite, onFavoriteToggle, isWatched, onWatchedToggle }) => {
-    const edrLink = `https://edr.simrail.app/${serverCode}/station/${edrMap.get(station.Prefix) || station.Prefix.toUpperCase()}`;
+    const edrLink = getStationEDRLink(station, serverCode);
 
     return <Card sx={{ width: 276 }}>
         <CardHeader
