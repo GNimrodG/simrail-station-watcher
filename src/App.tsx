@@ -68,15 +68,16 @@ function App() {
         // send notification if station is free
         if (station.DispatchedBy.length === 0 && watchedStations.includes(station.Name) && !stationNotifications.current[station.Name]) {
           const notification = new Notification(`Station ${station.Name} is free`, {
-            body: `Station ${station.Name} is free on the ${selectedServer} server`,
+            body: `Station ${station.Name} is free on the ${selectedServer?.ServerName || "en1"} server`,
             icon: station.MainImageURL,
+            requireInteraction: true,
           });
 
           // only available in secure context
-          notification.onclose = () => {
+          notification.addEventListener("close", () => {
             console.log("closed");
             delete stationNotifications.current[station.Name];
-          };
+          });
 
           stationNotifications.current[station.Name] = notification;
         }
