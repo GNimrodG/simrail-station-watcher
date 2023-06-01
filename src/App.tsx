@@ -52,15 +52,20 @@ function App() {
 
     if (!("Notification" in window)) {
       alert("This browser does not support desktop notifications!");
-    } else if (Notification.permission !== "denied") {
-      Notification.requestPermission().then((permission) => {
+      return;
+    }
+
+    if (Notification.permission === "denied") {
+      alert("You have denied desktop notifications! Station free notifications will not work.");
+      return;
+    }
+
+    Notification.requestPermission()
+      .then((permission) => {
         if (permission !== "granted") {
           alert("You have denied desktop notifications! Station free notifications will not work.");
         }
       });
-    } else {
-      alert("You have denied desktop notifications! Station free notifications will not work.");
-    }
   }, []);
 
   useEffect(() => {
@@ -131,7 +136,7 @@ function App() {
         </Grid>
         {!!selectedServer && <Grid item xs={1} sm="auto">
           <Tooltip title="Open the Live map for the server">
-            <IconButton href={`https://map.simrail.app/server/${selectedServer}`} target="_blank">
+            <IconButton href={`https://map.simrail.app/server/${selectedServer.ServerCode}`} target="_blank">
               <MapIcon />
             </IconButton>
           </Tooltip>
