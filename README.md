@@ -1,6 +1,9 @@
 # SimRail Station Watcher
 
-SimRail Station Watcher is a React application built with Vite and Material-UI (MUI) that allows users to monitor and manage train stations in the SimRail railway simulator. It provides a user-friendly interface to view station information and receive notifications when stations become free for dispatching. This open-source project aims to enhance the SimRail experience by providing a convenient tool for train dispatchers.
+SimRail Station Watcher is a React application built with Vite and Material-UI (MUI) that allows users to monitor and
+manage train stations in the SimRail railway simulator. It provides a user-friendly interface to view station
+information and receive notifications when stations become free for dispatching. This open-source project aims to
+enhance the SimRail experience by providing a convenient tool for train dispatchers.
 
 ## Features
 
@@ -10,13 +13,16 @@ SimRail Station Watcher is a React application built with Vite and Material-UI (
 - Favorite stations: Enables users to mark specific stations as favorites for quick access.
 - Server selection: Allows users to select the desired server to retrieve station data.
 - Refresh interval customization: Lets users define the interval for refreshing station data.
-- Integration with SimRail Live Map: Provides a direct link to the live map of the selected server for better situational awareness.
+- Integration with SimRail Live Map: Provides a direct link to the live map of the selected server for better
+  situational awareness.
 
-The application settings are stored in the browser's local storage, allowing users to persist their preferences across sessions.
+The application settings are stored in the browser's local storage, allowing users to persist their preferences across
+sessions.
 
 ## Demo
 
-You can try the live demo of SimRail Station Watcher hosted on [watcher.simrail.data-unknown.eu](https://watcher.simrail.data-unknown.eu/) by [Vercel](https://vercel.com/).
+You can try the live demo of SimRail Station Watcher hosted
+on [watcher.simrail.data-unknown.eu](https://watcher.simrail.data-unknown.eu/) by [Vercel](https://vercel.com/).
 
 ## Installation
 
@@ -46,7 +52,8 @@ To install and run SimRail Station Watcher locally, follow these steps:
    yarn dev
    ```
 
-   This will launch the application in development mode and open it in your default browser. Changes to the source code will automatically trigger hot-reloading.
+   This will launch the application in development mode and open it in your default browser. Changes to the source code
+   will automatically trigger hot-reloading.
 
 ## Dependencies
 
@@ -66,6 +73,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgments
 
-SimRail Station Watcher is inspired by the SimRail railway simulator and aims to enhance the experience of train dispatchers. Thanks to the SimRail community for their support and feedback.
+SimRail Station Watcher is inspired by the SimRail railway simulator and aims to enhance the experience of train
+dispatchers. Thanks to the SimRail community for their support and feedback.
 
 Please note that this project is not officially affiliated with or endorsed by SimRail or its developers.

@@ -1,10 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import { useQuery } from "@tanstack/react-query";
-import { Server, ServersResponse, StationResponse } from "./types.ts";
-import Loader from "./components/Loader.tsx";
-
-// MUI Components
 import Alert from "@mui/material/Alert";
 import Autocomplete from "@mui/material/Autocomplete";
 import Container from "@mui/material/Container";
@@ -13,13 +9,14 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Slider from "@mui/material/Slider";
-import StationCard from "./components/StationCard.tsx";
 import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-
-// Icons
 import MapIcon from "@mui/icons-material/Map";
+
+import StationCard from "./components/StationCard.tsx";
+import Loader from "./components/Loader.tsx";
+import { Server, ServersResponse, StationResponse } from "./types.ts";
 import { getStationEDRLink } from "./edr-mapping.ts";
 
 async function getStationData(serverCode: string): Promise<StationResponse> {
@@ -33,10 +30,19 @@ async function getStationList(): Promise<ServersResponse> {
 }
 
 function App() {
-  const [selectedServer, setSelectedServer] = useLocalStorage<Server | null>({ key: "selectedServer", defaultValue: null });
-  const [watchedStations, setWatchedStations] = useLocalStorage<string[]>({ key: "watchedStations", defaultValue: [] });
+  const [selectedServer, setSelectedServer] = useLocalStorage<Server | null>({
+    key: "selectedServer",
+    defaultValue: null
+  });
+  const [watchedStations, setWatchedStations] = useLocalStorage<string[]>({
+    key: "watchedStations",
+    defaultValue: []
+  });
   const [updateInterval, setUpdateInterval] = useLocalStorage({ key: "updateInterval", defaultValue: 15000 });
-  const [favoriteStations, setFavoriteStations] = useLocalStorage<string[]>({ key: "favoriteStations", defaultValue: [] });
+  const [favoriteStations, setFavoriteStations] = useLocalStorage<string[]>({
+    key: "favoriteStations",
+    defaultValue: []
+  });
 
   const stationNotifications = useRef<Record<string, Notification>>({});
 
@@ -81,7 +87,6 @@ function App() {
 
           // only available in secure context
           notification.addEventListener("close", () => {
-            console.log("closed", station.Name);
             delete stationNotifications.current[station.Name];
             setWatchedStations((stations) => stations.filter((x) => x !== station.Name));
             window.open(getStationEDRLink(station, selectedServer?.ServerCode || "en1"), "_blank");
@@ -136,12 +141,18 @@ function App() {
         </Grid>
         {!!selectedServer && <Grid item xs={1} sm="auto">
           <Tooltip title="Open the Live map for the server">
-            <IconButton href={`https://map.simrail.app/server/${selectedServer.ServerCode}`} target="_blank">
+            <IconButton
+              href={`https://map.simrail.app/server/${selectedServer.ServerCode}`}
+              target="_blank">
               <MapIcon />
             </IconButton>
           </Tooltip>
         </Grid>}
-        {(!!selectedServer && !data) && <Grid item sx={{ paddingTop: "calc(50vh - 135px) !important", paddingLeft: "0 !important" }}><Loader /></Grid>}
+        {(!!selectedServer && !data) &&
+          <Grid item sx={{
+            paddingTop: "calc(50vh - 135px) !important",
+            paddingLeft: "0 !important"
+          }}><Loader /></Grid>}
         {!selectedServer && <Grid item xs={12}><Typography>Please select a server</Typography></Grid>}
         {(data && !data.result) && <Grid item>
           <span>Something went wrong</span>
@@ -153,9 +164,15 @@ function App() {
               multiple
               disabled={Notification.permission !== "granted"}
               options={data.data.map(x => x.Name)}
-              renderInput={(params) => <TextField {...params} label="Watched stations" />}
               value={watchedStations}
-              onChange={(_e, v) => setWatchedStations(v)} />
+              onChange={(_e, v) => setWatchedStations(v)}
+              renderInput={(params) =>
+                <TextField
+                  {...params}
+                  label="Watched stations"
+                  helperText={Notification.permission !== "granted"
+                    ? "You cannot watch stations because you disabled the notifications permission for this website."
+                    : "You will receive desktop notifications when any of these stations become available."} />} />
           </Grid>
 
           {!!favoriteStations.length && <>
@@ -176,7 +193,7 @@ function App() {
           {data.data
             .filter(x => !favoriteStations.includes(x.Name))
             .sort((a, b) => a.Prefix.localeCompare(b.Prefix))
-            .map((station) => (<Grid item key={station.id} >
+            .map((station) => (<Grid item key={station.id}>
               <StationCard
                 station={station}
                 serverCode={selectedServer.ServerCode}

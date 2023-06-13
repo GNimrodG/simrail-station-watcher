@@ -8,10 +8,8 @@ import "@total-typescript/ts-reset";
 import { Analytics } from "@vercel/analytics/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as Sentry from "@sentry/react";
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-// MUI
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import CssBaseline from "@mui/material/CssBaseline";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import createTheme from "@mui/material/styles/createTheme";
@@ -49,8 +47,8 @@ const theme = createTheme({
   },
 });
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+createRoot(document.getElementById("root") as HTMLElement).render(
+  <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -58,5 +56,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       </ThemeProvider>
     </QueryClientProvider>
     <Analytics />
-  </React.StrictMode>,
+  </StrictMode>,
 );
