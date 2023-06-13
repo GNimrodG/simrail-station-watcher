@@ -1,4 +1,11 @@
-import { type FunctionComponent } from "react";
+import ScheduleIcon from "@mui/icons-material/EventNote";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import EyeIcon from "@mui/icons-material/Visibility";
+import EyeOffIcon from "@mui/icons-material/VisibilityOff";
+import WarningIcon from "@mui/icons-material/Warning";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import Alert from "@mui/material/Alert";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -8,14 +15,7 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Rating from "@mui/material/Rating";
 import Tooltip from "@mui/material/Tooltip";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import WarningIcon from "@mui/icons-material/Warning";
-import WarningAmberIcon from "@mui/icons-material/WarningAmber";
-import EyeIcon from "@mui/icons-material/Visibility";
-import EyeOffIcon from "@mui/icons-material/VisibilityOff";
-import ScheduleIcon from "@mui/icons-material/EventNote";
+import { type FunctionComponent } from "react";
 
 import { getStationEDRLink } from "../edr-mapping";
 import { Station } from "../types";

@@ -5,14 +5,14 @@ import "@fontsource/roboto/700.css";
 
 import "@total-typescript/ts-reset";
 
-import { Analytics } from "@vercel/analytics/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import * as Sentry from "@sentry/react";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
 import CssBaseline from "@mui/material/CssBaseline";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import createTheme from "@mui/material/styles/createTheme";
+import * as Sentry from "@sentry/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Analytics } from "@vercel/analytics/react";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 
 import App from "./App.tsx";
 
@@ -51,7 +51,7 @@ createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
+        <CssBaseline enableColorScheme />
         <App />
       </ThemeProvider>
     </QueryClientProvider>

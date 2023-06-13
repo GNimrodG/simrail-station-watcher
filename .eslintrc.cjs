@@ -12,9 +12,9 @@ module.exports = {
   plugins: ["react-refresh", "import", "mui-path-imports"],
   rules: {
     "react-refresh/only-export-components": "warn",
-    "quotes": ["error", "double", { "avoidEscape": true }],
-    "semi": ["error", "always"],
-    "indent": ["error", 2],
+    quotes: ["error", "double", { avoidEscape: true }],
+    semi: ["error", "always"],
+    indent: ["error", 2],
     "no-multiple-empty-lines": ["error", { max: 1 }],
     "no-trailing-spaces": ["error"],
     "no-var": ["error"],
@@ -27,29 +27,24 @@ module.exports = {
     "import/order": [
       "warn",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-          "object",
-          "type"
-        ],
-        "newlines-between": "always"
-      }
+        groups: ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
+        "newlines-between": "always",
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: false,
+        },
+      },
     ],
     "mui-path-imports/mui-path-imports": "error",
   },
   settings: {
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+      "@typescript-eslint/parser": [".ts", ".tsx"],
     },
     "import/resolver": {
-      "typescript": {
-        "alwaysTryTypes": true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
-      }
-    }
-  }
+      typescript: {
+        alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+      },
+    },
+  },
 };
