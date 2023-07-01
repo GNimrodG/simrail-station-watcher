@@ -15,7 +15,7 @@
     "@fontsource/roboto": "^5.0.2",
     "@mantine/hooks": "^6.0.15",
     "@mui/icons-material": "^5.11.16",
-    "@mui/material": "^5.13.3",
+    "@mui/material": "^5.13.6",
     "@sentry/react": "^7.53.1",
     "@tanstack/react-query": "^4.29.12",
     "@total-typescript/ts-reset": "^0.4.2",
