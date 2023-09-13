@@ -32,6 +32,7 @@ async function getStationList(): Promise<ServersResponse> {
 }
 
 const currentYear = new Date().getFullYear();
+const supportsNotification = "Notification" in window;
 
 function App() {
   const [selectedServer, setSelectedServer] = useLocalStorage<Server | null>({
@@ -60,7 +61,7 @@ function App() {
   useEffect(() => {
     document.getElementById("loading-style")?.remove();
 
-    if (!("Notification" in window)) {
+    if (!supportsNotification) {
       alert("This browser does not support desktop notifications!");
       return;
     }
@@ -167,7 +168,7 @@ function App() {
             <Grid item xs={12}>
               <Autocomplete
                 multiple
-                disabled={Notification.permission !== "granted"}
+                disabled={supportsNotification && Notification.permission !== "granted"}
                 options={data.data.map(x => x.Name)}
                 value={watchedStations}
                 onChange={(_e, v) => setWatchedStations(v)}
@@ -175,9 +176,11 @@ function App() {
                   <TextField
                     {...params}
                     label="Watched stations"
-                    helperText={Notification.permission !== "granted"
-                      ? "You cannot watch stations because you disabled the notifications permission for this website."
-                      : "You will receive desktop notifications when any of these stations become available."} />} />
+                    helperText={(supportsNotification
+                      ? (Notification.permission !== "granted"
+                        ? "You cannot watch stations because you disabled the notifications permission for this website."
+                        : "You will receive desktop notifications when any of these stations become available.")
+                      : "You cannot watch stations because this browser doesn't support notifications.")} />} />
             </Grid>
 
             {!!favoriteStations.length && <>
