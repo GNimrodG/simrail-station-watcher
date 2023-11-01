@@ -14,7 +14,7 @@ import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 import Loader from "./components/Loader.tsx";
 import StationCard from "./components/StationCard.tsx";
@@ -39,21 +39,27 @@ function App() {
     key: "selectedServer",
     defaultValue: null
   });
-  const [watchedStations, setWatchedStations] = useLocalStorage<string[]>({
+
+  const [_watchedStations, setWatchedStations] = useLocalStorage<string[]>({
     key: "watchedStations",
     defaultValue: []
   });
+
+  const watchedStations = useMemo(() => _watchedStations ?? [], [_watchedStations]);
+
   const [updateInterval, setUpdateInterval] = useLocalStorage({ key: "updateInterval", defaultValue: 15000 });
-  const [favoriteStations, setFavoriteStations] = useLocalStorage<string[]>({
+  const [_favoriteStations, setFavoriteStations] = useLocalStorage<string[]>({
     key: "favoriteStations",
     defaultValue: []
   });
+
+  const favoriteStations = _favoriteStations ?? [];
 
   const stationNotifications = useRef<Record<string, Notification>>({});
 
   const { data: servers } = useQuery(["servers"], getStationList);
 
-  const { data } = useQuery(["stations", selectedServer], () => getStationData(selectedServer?.ServerCode || "en1"), {
+  const { data } = useQuery(["stations", selectedServer], () => getStationData(selectedServer?.ServerCode ?? "en1"), {
     refetchInterval: updateInterval,
     enabled: !!servers && !!selectedServer,
   });
@@ -80,12 +86,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (data && data.result) {
+    if (data?.result) {
       data.data.forEach((station) => {
         // send notification if station is free
         if (station.DispatchedBy.length === 0 && watchedStations.includes(station.Name) && !stationNotifications.current[station.Name]) {
           const notification = new Notification(`Station ${station.Name} is free`, {
-            body: `Station ${station.Name} is free on the ${selectedServer?.ServerName || "en1"} server`,
+            body: `Station ${station.Name} is free on the ${selectedServer?.ServerName ?? "en1"} server`,
             icon: station.MainImageURL,
             requireInteraction: true,
           });
@@ -94,7 +100,7 @@ function App() {
           notification.addEventListener("close", () => {
             delete stationNotifications.current[station.Name];
             setWatchedStations((stations) => stations.filter((x) => x !== station.Name));
-            window.open(getStationEDRLink(station, selectedServer?.ServerCode || "en1"), "_blank");
+            window.open(getStationEDRLink(station, selectedServer?.ServerCode ?? "en1"), "_blank");
           });
 
           stationNotifications.current[station.Name] = notification;
@@ -138,7 +144,7 @@ function App() {
           <Grid item sm={9} xs={11}>
             <Autocomplete
               disableClearable
-              options={servers?.data || []}
+              options={servers?.data ?? []}
               value={selectedServer as Server}
               getOptionLabel={(option) => option.ServerName}
               isOptionEqualToValue={(option, value) => option.ServerCode === value.ServerCode}

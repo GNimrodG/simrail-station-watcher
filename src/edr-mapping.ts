@@ -16,5 +16,5 @@ export const edrMap = new Map<string, string>([
 ]);
 
 export function getStationEDRLink(station: Station, serverCode: string) {
-  return `https://edr.simrail.app/${serverCode}/station/${edrMap.get(station.Prefix) || station.Prefix.toUpperCase()}`;
+  return `https://edr.simrail.app/${serverCode}/station/${edrMap.get(station.Prefix) ?? station.Prefix.toUpperCase()}`;
 }
