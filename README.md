@@ -22,7 +22,7 @@ sessions.
 ## Demo
 
 You can try the live demo of SimRail Station Watcher hosted
-on [watcher.simrail.data-unknown.eu](https://watcher.simrail.data-unknown.eu/) by [Vercel](https://vercel.com/).
+on [watcher.simrail.data-unknown.com](https://watcher.simrail.data-unknown.com/) by [Vercel](https://vercel.com/).
 
 ## Installation
 
