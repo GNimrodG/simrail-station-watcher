@@ -63,16 +63,14 @@ function App() {
 
   const stationNotifications = useRef<Record<string, Notification>>({});
 
-  const { data: servers } = useQuery(["servers"], getStationList);
+  const { data: servers } = useQuery({ queryKey: ["servers"], queryFn: getStationList });
 
-  const { data, dataUpdatedAt, errorUpdatedAt } = useQuery(
-    ["stations", selectedServer],
-    () => getStationData(selectedServer?.ServerCode ?? "en1"),
-    {
-      refetchInterval: updateInterval,
-      enabled: !!servers && !!selectedServer,
-    }
-  );
+  const { data, dataUpdatedAt, errorUpdatedAt } = useQuery({
+    queryKey: ["stations", selectedServer],
+    queryFn: () => getStationData(selectedServer?.ServerCode ?? "en1"),
+    refetchInterval: updateInterval,
+    enabled: !!servers && !!selectedServer,
+  });
 
   useEffect(() => {
     document.getElementById("loading-style")?.remove();
