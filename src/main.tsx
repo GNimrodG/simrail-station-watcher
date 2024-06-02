@@ -18,12 +18,9 @@ import App from "./App.tsx";
 
 Sentry.init({
   dsn: "https://0aa2ef44d72349c2b385207a7b3daa80@o260759.ingest.sentry.io/4505268710146048",
-  integrations: [
-    new Sentry.BrowserTracing(),
-    new Sentry.Replay(),
-  ],
+  integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
   // Performance Monitoring
-  tracesSampleRate: 1.0, // Capture 100% of the transactions, reduce in production!
+  tracesSampleRate: 0.5,
   // Session Replay
   // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
   replaysSessionSampleRate: 0.1,
@@ -43,7 +40,7 @@ const theme = createTheme({
     background: {
       default: "var(--bg)",
       paper: "var(--bg)",
-    }
+    },
   },
 });
 
@@ -56,5 +53,5 @@ createRoot(document.getElementById("root") as HTMLElement).render(
       </ThemeProvider>
     </QueryClientProvider>
     <Analytics />
-  </StrictMode>,
+  </StrictMode>
 );
