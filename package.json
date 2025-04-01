@@ -15,7 +15,7 @@
     "@fontsource/roboto": "^5.1.1",
     "@mantine/hooks": "^7.17.3",
     "@mui/icons-material": "^5.16.13",
-    "@mui/material": "^5.16.14",
+    "@mui/material": "^5.17.1",
     "@sentry/react": "^9.10.1",
     "@sentry/vite-plugin": "^3.1.1",
     "@tanstack/react-query": "^5.71.1",
