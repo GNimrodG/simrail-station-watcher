@@ -13,7 +13,7 @@
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/roboto": "^5.1.1",
-    "@mantine/hooks": "^7.11.0",
+    "@mantine/hooks": "^7.17.3",
     "@mui/icons-material": "^5.16.13",
     "@mui/material": "^5.16.14",
     "@sentry/react": "^9.10.1",
