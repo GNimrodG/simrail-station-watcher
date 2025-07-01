@@ -21,11 +21,11 @@
     "@tanstack/react-query": "^5.71.1",
     "@total-typescript/ts-reset": "^0.6.1",
     "@vercel/analytics": "^1.5.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
+    "@types/react": "^19.1.8",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
