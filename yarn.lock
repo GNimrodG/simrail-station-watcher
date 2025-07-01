@@ -628,10 +628,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@mantine/hooks@^7.17.5":
-  version "7.17.5"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.17.5.tgz#ae3c270161c4a156e3ca8dff1c7a73c4a3710c48"
-  integrity sha512-Q/3AHI1fjl+W7xQ3jEoMmSoTxLqxMI2gPfxIjd73OPmRpPenYWR1zk/diirXXm2t7JOrAbmpA3/O1gzmgqzc/Q==
+"@mantine/hooks@^8.1.2":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-8.1.2.tgz#1cafbf99c751e9407c11622ed3dca1e8c7058d69"
+  integrity sha512-BrriTsiazqZ2fLuL7UDasNTQJSaoJ7mN2qYVkdsiYI158lxJdUaFWHhd6BDyzK+W6thvBx2D+R/hh1rsWWefdQ==
 
 "@mui/core-downloads-tracker@^5.17.1":
   version "5.17.1"
