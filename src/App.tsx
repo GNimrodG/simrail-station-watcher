@@ -1,4 +1,5 @@
-import { useLocalStorage } from "@mantine/hooks";
+import "./styles.css";
+import { useLocalStorage, usePrevious } from "@mantine/hooks";
 import MapIcon from "@mui/icons-material/Map";
 import Alert from "@mui/material/Alert";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -14,6 +15,7 @@ import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useQuery } from "@tanstack/react-query";
+import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import { useEffect, useMemo, useRef } from "react";
 
 import Loader from "./components/Loader.tsx";
@@ -63,7 +65,11 @@ function App() {
 
   const stationNotifications = useRef<Record<string, Notification>>({});
 
-  const { data: servers } = useQuery({ queryKey: ["servers"], queryFn: getStationList });
+  const { data: servers } = useQuery({
+    queryKey: ["servers"],
+    queryFn: getStationList,
+    refetchInterval: 5 * 60 * 1000, // 5 minutes
+  });
 
   const { data, dataUpdatedAt, errorUpdatedAt } = useQuery({
     queryKey: ["stations", selectedServer],
@@ -71,6 +77,34 @@ function App() {
     refetchInterval: updateInterval,
     enabled: !!servers && !!selectedServer,
   });
+
+  const stationChangeDetector = useMemo(() => {
+    return data?.data?.map((x) => ({ station: x, free: !x.DispatchedBy.length }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.data?.map((x) => x.DispatchedBy.length).join(",")]);
+
+  const stationChangeDetectorPrev = usePrevious(stationChangeDetector);
+
+  const lastDataChanged = useMemo(() => {
+    return new Date().toLocaleTimeString();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stationChangeDetector]);
+
+  useEffect(() => {
+    if (stationChangeDetector && stationChangeDetectorPrev) {
+      // Send a notistack notification for each station that changed
+      for (let i = 0; i < stationChangeDetector.length; i++) {
+        if (stationChangeDetector[i].free !== stationChangeDetectorPrev[i].free) {
+          enqueueSnackbar(
+            `${stationChangeDetector[i].station.Name} is now ${
+              stationChangeDetector[i].free ? "FREE" : "OCCUPIED"
+            } at ${new Date().toLocaleTimeString()}`,
+            { variant: "info" }
+          );
+        }
+      }
+    }
+  }, [stationChangeDetector, stationChangeDetectorPrev]);
 
   useEffect(() => {
     document.getElementById("loading-style")?.remove();
@@ -80,20 +114,20 @@ function App() {
       return;
     }
 
-    if (Notification.permission === "denied") {
+    if (Notification?.permission === "denied") {
       alert(
         "You have denied desktop notifications. As a result, you will not receive station-free notifications."
       );
       return;
     }
 
-    Notification.requestPermission().then((permission) => {
+    Notification?.requestPermission?.().then((permission) => {
       if (permission !== "granted") {
         alert(
           "You have denied desktop notifications. As a result, you will not receive station-free notifications."
         );
       }
-    });
+    }) || alert("This browser does not support desktop notifications!");
   }, []);
 
   useEffect(() => {
@@ -105,6 +139,8 @@ function App() {
           watchedStations.includes(station.Name) &&
           !stationNotifications.current[station.Name]
         ) {
+          enqueueSnackbar(`Station ${station.Name} is free`, { variant: "info" });
+
           const notification = new Notification(`Station ${station.Name} is free`, {
             body: `Station ${station.Name} is free on the ${
               selectedServer?.ServerName ?? "en1"
@@ -140,6 +176,12 @@ function App() {
 
   return (
     <>
+      <SnackbarProvider
+        classes={{
+          containerAnchorOriginBottomLeft: "snackbar-bottom-left",
+        }}
+        style={{ bottom: 72, left: 16, right: 16 }}
+      />
       <UpdateIndicator
         updateInterval={updateInterval || 15000}
         dataUpdatedAt={dataUpdatedAt}
@@ -235,7 +277,7 @@ function App() {
                 xs={12}>
                 <Autocomplete
                   multiple
-                  disabled={supportsNotification && Notification.permission !== "granted"}
+                  disabled={supportsNotification && Notification?.permission !== "granted"}
                   options={data.data.map((x) => x.Name)}
                   value={watchedStations}
                   onChange={(_e, v) => setWatchedStations(v)}
@@ -245,7 +287,7 @@ function App() {
                       label="Watched stations"
                       helperText={
                         supportsNotification
-                          ? Notification.permission !== "granted"
+                          ? Notification?.permission !== "granted"
                             ? "You cannot watch stations because you disabled the notifications permission for this website."
                             : "You will receive desktop notifications when any of these stations become available."
                           : "You cannot watch stations because this browser doesn't support notifications."
@@ -277,10 +319,7 @@ function App() {
                   <Grid
                     item
                     xs={12}>
-                    <Divider
-                      light
-                      sx={{ borderBottomWidth: 2 }}
-                    />
+                    <Divider sx={{ borderBottomWidth: 2, opacity: 0.6 }} />
                   </Grid>
                 </>
               )}
@@ -311,37 +350,49 @@ function App() {
           bottom: 0,
           left: 0,
           right: 0,
-          textAlign: "center",
           paddingY: 1,
+          paddingX: 2,
           marginTop: 2,
+          display: "grid",
+          gridTemplateColumns: "1fr auto 1fr",
           color: (theme) => theme.palette.text.secondary,
           borderTop: (theme) => `1px solid ${theme.palette.divider}`,
           backgroundColor: (theme) => theme.palette.background.paper,
         }}>
-        <Typography
-          variant="caption"
-          display="block"
-          gutterBottom>
-          This website is not affiliated with the{" "}
-          <Link
-            href="https://simrail.eu"
-            target="_blank">
-            SimRail
-          </Link>{" "}
-          team.
-        </Typography>
-
-        <Typography
-          variant="caption"
-          display="block"
-          gutterBottom>
-          Copyright &copy; {currentYear}{" "}
-          <Link
-            href="https://github.com/GNimrodG"
-            target="_blank">
-            GNimrodG
-          </Link>
-        </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          {!!lastDataChanged && (
+            <Typography
+              variant="caption"
+              display="block">
+              Last change: {lastDataChanged}
+            </Typography>
+          )}
+        </Box>
+        <Box sx={{ textAlign: "center" }}>
+          <Typography
+            variant="caption"
+            display="block"
+            gutterBottom>
+            This website is not affiliated with the{" "}
+            <Link
+              href="https://simrail.eu"
+              target="_blank">
+              SimRail
+            </Link>{" "}
+            team.
+          </Typography>
+          <Typography
+            variant="caption"
+            display="block"
+            gutterBottom>
+            Copyright &copy; {currentYear}{" "}
+            <Link
+              href="https://github.com/GNimrodG"
+              target="_blank">
+              GNimrodG
+            </Link>
+          </Typography>
+        </Box>
       </Box>
     </>
   );
