@@ -575,9 +575,9 @@
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
 "@mantine/hooks@^9.0.0":
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-9.2.0.tgz#1f7f6e427fe0bd727c4ed4a717e394723e21ec67"
-  integrity sha512-xSt33F84+zgESHqyhJQvVTvCGN1GyQUuHIvh1cAZavXK7Uwy0Fqckno/5OP29ZNJUgu+H/jYuSluu100tMUeAQ==
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-9.2.1.tgz#8f81303b5eab68b10f4b3d7c99795b70932bc2db"
+  integrity sha512-IX/ztVG9eWmQTRsN7G8odyW4JckNvN8qv5A2ULzXyazjtAKLuaUpuMz0c6XhRp10J0g4bVfV3rhrTgWeImqxqg==
 
 "@mui/core-downloads-tracker@^5.18.0":
   version "5.18.0"
