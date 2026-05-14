@@ -6,8 +6,7 @@ import "@fontsource/roboto/700.css";
 import "@total-typescript/ts-reset";
 
 import CssBaseline from "@mui/material/CssBaseline";
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
-import createTheme from "@mui/material/styles/createTheme";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import * as Sentry from "@sentry/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Analytics } from "@vercel/analytics/react";

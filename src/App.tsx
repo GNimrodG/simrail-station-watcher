@@ -191,12 +191,9 @@ function App() {
         <Grid
           container
           spacing={1}
-          justifyContent="space-around"
-          alignItems="center">
+          sx={{ justifyContent: "space-around", alignItems: "center" }}>
           <Grid
-            item
-            sm={2}
-            xs={12}>
+            size={{ sm: 2, xs: 12 }}>
             <FormControlLabel
               sx={{ width: "calc(100% - 32px)" }}
               control={
@@ -215,9 +212,7 @@ function App() {
             />
           </Grid>
           <Grid
-            item
-            sm={9}
-            xs={11}>
+            size={{ sm: 9, xs: 11 }}>
             <Autocomplete
               disableClearable
               options={servers?.data ?? []}
@@ -235,9 +230,7 @@ function App() {
           </Grid>
           {!!selectedServer && (
             <Grid
-              item
-              xs={1}
-              sm="auto">
+              size={{ xs: 1, sm: "auto" }}>
               <Tooltip title="Open the Live map for the server">
                 <IconButton
                   href={`https://map.simrail.app/server/${selectedServer.ServerCode}`}
@@ -249,7 +242,6 @@ function App() {
           )}
           {!!selectedServer && !data && (
             <Grid
-              item
               sx={{
                 paddingTop: "calc(50vh - 135px) !important",
                 paddingLeft: "0 !important",
@@ -259,13 +251,12 @@ function App() {
           )}
           {!selectedServer && (
             <Grid
-              item
-              xs={12}>
+              size={12}>
               <Typography align="center">Please select a server</Typography>
             </Grid>
           )}
           {data && !data.result && (
-            <Grid item>
+            <Grid>
               <span>Something went wrong</span>
               <Alert severity="error">{data.description}</Alert>
             </Grid>
@@ -273,8 +264,7 @@ function App() {
           {!!selectedServer && data && data.result && (
             <>
               <Grid
-                item
-                xs={12}>
+                size={12}>
                 <Autocomplete
                   multiple
                   disabled={supportsNotification && Notification?.permission !== "granted"}
@@ -304,7 +294,6 @@ function App() {
                     .sort((a, b) => a.Prefix.localeCompare(b.Prefix))
                     .map((station) => (
                       <Grid
-                        item
                         key={station.id}>
                         <StationCard
                           station={station}
@@ -317,8 +306,7 @@ function App() {
                       </Grid>
                     ))}
                   <Grid
-                    item
-                    xs={12}>
+                    size={12}>
                     <Divider sx={{ borderBottomWidth: 2, opacity: 0.6 }} />
                   </Grid>
                 </>
@@ -328,7 +316,6 @@ function App() {
                 .sort((a, b) => a.Prefix.localeCompare(b.Prefix))
                 .map((station) => (
                   <Grid
-                    item
                     key={station.id}>
                     <StationCard
                       station={station}
@@ -363,7 +350,7 @@ function App() {
           {!!lastDataChanged && (
             <Typography
               variant="caption"
-              display="block">
+              sx={{ display: "block" }}>
               Last change: {lastDataChanged}
             </Typography>
           )}
@@ -371,7 +358,7 @@ function App() {
         <Box sx={{ textAlign: "center" }}>
           <Typography
             variant="caption"
-            display="block"
+            sx={{ display: "block" }}
             gutterBottom>
             This website is not affiliated with the{" "}
             <Link
@@ -383,7 +370,7 @@ function App() {
           </Typography>
           <Typography
             variant="caption"
-            display="block"
+            sx={{ display: "block" }}
             gutterBottom>
             Copyright &copy; {currentYear}{" "}
             <Link
