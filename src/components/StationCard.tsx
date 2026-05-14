@@ -63,9 +63,9 @@ const StationCard: FunctionComponent<StationCardProps> = ({
         </IconButton>} />
     <CardMedia component="img" image={station.MainImageURL} />
     <CardContent>
-      <Grid container spacing={1} justifyContent="center" alignItems="center">
-        <Grid item xs={12} container justifyContent="space-between" alignItems="center">
-          <Grid item>
+      <Grid container spacing={1} sx={{ justifyContent: "center", alignItems: "center" }}>
+        <Grid container size={12} sx={{ justifyContent: "space-between", alignItems: "center" }}>
+          <Grid>
             <Tooltip title="Difficulty">
               <Rating
                 value={station.DifficultyLevel}
@@ -74,8 +74,8 @@ const StationCard: FunctionComponent<StationCardProps> = ({
                 readOnly />
             </Tooltip>
           </Grid>
-          <Grid item container spacing={1} xs={5} justifyContent="flex-end">
-            <Grid item>
+          <Grid container spacing={1} size={5} sx={{ justifyContent: "flex-end" }}>
+            <Grid>
               <Tooltip title={isWatched ? "Stop watching this station" : "Start watching this station"}>
                 <IconButton
                   onClick={() => onWatchedToggle(station.Name)}
@@ -86,19 +86,19 @@ const StationCard: FunctionComponent<StationCardProps> = ({
                 </IconButton>
               </Tooltip>
             </Grid>
-            <Grid item>
+            <Grid>
               <Tooltip title="Open EDR for this station">
                 <IconButton href={edrLink} target="_blank"><ScheduleIcon /></IconButton>
               </Tooltip>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={10}>
+        <Grid size={10}>
           <Alert severity={station.DispatchedBy.length ? "error" : "success"}>
             {station.DispatchedBy.length ? "Occupied" : "Free"}
           </Alert>
         </Grid>
-        <Grid item xs={2}>
+        <Grid size={2}>
           <Tooltip title="Open location in Google Maps">
             <IconButton href={`https://maps.google.com/?q=${station.Latititude},${station.Longitude}`} target="_blank">
               <LocationOnIcon />
