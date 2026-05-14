@@ -11,8 +11,10 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          "mui-icons": ["@mui/icons-material"],
+        manualChunks: (id) => {
+          if (id.includes("/node_modules/@mui/icons-material/")) {
+            return "mui-icons";
+          }
         }
       }
     },
