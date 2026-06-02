@@ -29,7 +29,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
+    "@typescript-eslint/parser": "^8.60.1",
     "@vitejs/plugin-react-swc": "^4.2.2",
     "eslint": "^10.0.0",
     "eslint-import-resolver-typescript": "^4.4.4",
