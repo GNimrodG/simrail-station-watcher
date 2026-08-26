@@ -907,17 +907,17 @@
   dependencies:
     "@swc/counter" "^0.1.3"
 
-"@tanstack/query-core@5.102.4":
-  version "5.102.4"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.102.4.tgz#05fea44fdc900438210a432dd77a3893e26bb4cf"
-  integrity sha512-6eXkL+KFyVAZdpKoThCjPQQylZK8/ZOMYTJEVoPtHLkLs2PYks6vUiim9qzgvFXakSkRIAZwAZTeZLIJmpgRpQ==
+"@tanstack/query-core@5.102.6":
+  version "5.102.6"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.102.6.tgz#874ef53e9f5f4cb56dd2fa62341a0fd7dd880d85"
+  integrity sha512-jp+GucyQ+fel2ILb8ZLQeqMaAqZL/Bzaj+dKOQiPk4vPdf2rQPEV7heUyEVIhatpY42j4AFHav4DzBa1oTIp/A==
 
 "@tanstack/react-query@^5.90.16":
-  version "5.102.4"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.102.4.tgz#1cece9f2f06e8a34e33a5147e625fd54a02c07e4"
-  integrity sha512-Cn6X2eqFHjCtA/sfM/3eiT6/YmcPqo30twNHUlqkfz9LBqRzdt8GN/mFMWXn/qTacYUo3d4nycMzn3LWZmJ7MQ==
+  version "5.102.6"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.102.6.tgz#5456c885c75b08f7eb2320eff7f9ff68991fcd63"
+  integrity sha512-ANz4KZ8z80D85fiz5IAHjpb8XBPLrjOb/0natlD9Ascyy/3p96V86Zw8UbOfA0HDLcvK/A4gNd95r723y5UT2w==
   dependencies:
-    "@tanstack/query-core" "5.102.4"
+    "@tanstack/query-core" "5.102.6"
 
 "@total-typescript/ts-reset@^0.6.1":
   version "0.6.1"
