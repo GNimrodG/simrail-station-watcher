@@ -31,6 +31,13 @@ Sentry.init({
   denyUrls: [/localhost/],
 });
 
+// Needed to show notifications where the Notification constructor is not allowed (e.g. Chrome on Android)
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/notification-sw.js").catch((e) => {
+    console.warn("Failed to register the notification service worker", e);
+  });
+}
+
 const queryClient = new QueryClient();
 
 const theme = createTheme({
