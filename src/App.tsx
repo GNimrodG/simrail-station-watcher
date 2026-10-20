@@ -22,7 +22,7 @@ import Loader from "./components/Loader.tsx";
 import StationCard from "./components/StationCard.tsx";
 import UpdateIndicator from "./components/UpdateIndicator.tsx";
 import { getStationEDRLink } from "./edr-mapping.ts";
-import { Server, ServersResponse, StationResponse } from "./types.ts";
+import { Server, ServersResponse, Station, StationResponse } from "./types.ts";
 
 async function getStationData(serverCode: string): Promise<StationResponse> {
   const response = await fetch(
@@ -38,6 +38,46 @@ async function getStationList(): Promise<ServersResponse> {
 
 const currentYear = new Date().getFullYear();
 const supportsNotification = "Notification" in window;
+
+/**
+ * Shows a system notification about a free station. Uses the Notification constructor where it's allowed, otherwise
+ * (e.g. Chrome on Android) the service worker. Never throws.
+ * @param onClosed called when the notification is closed (clicking it also opens the station's EDR)
+ */
+function showStationFreeNotification(station: Station, serverName: string, edrLink: string, onClosed: () => void) {
+  if (!supportsNotification || Notification.permission !== "granted") return;
+
+  const title = `Station ${station.Name} is free`;
+  const options: NotificationOptions = {
+    body: `Station ${station.Name} is free on the ${serverName} server`,
+    icon: station.MainImageURL,
+    requireInteraction: true,
+    tag: `station-free-${station.Name}`,
+    data: { station: station.Name, url: edrLink },
+  };
+
+  try {
+    const notification = new Notification(title, options);
+
+    // only available in secure context
+    notification.addEventListener("close", () => {
+      onClosed();
+      window.open(edrLink, "_blank");
+    });
+    return;
+  } catch (e) {
+    // "Illegal constructor": the page may only show notifications through a service worker
+    if (!(e instanceof TypeError) || !("serviceWorker" in navigator)) {
+      console.error("Failed to show the station notification", e);
+      return;
+    }
+  }
+
+  // the close and click events arrive as messages from the service worker
+  navigator.serviceWorker.ready
+    .then((registration) => registration.showNotification(title, options))
+    .catch((e) => console.error("Failed to show the station notification", e));
+}
 
 function App() {
   const [selectedServer, setSelectedServer] = useLocalStorage<Server | null>({
@@ -63,7 +103,8 @@ function App() {
 
   const favoriteStations = _favoriteStations ?? [];
 
-  const stationNotifications = useRef<Record<string, Notification>>({});
+  // the watched stations that were already notified about being free
+  const notifiedStations = useRef(new Set<string>());
 
   const { data: servers } = useQuery({
     queryKey: ["servers"],
@@ -130,33 +171,51 @@ function App() {
     }) || alert("This browser does not support desktop notifications!");
   }, []);
 
+  // A notification shown by the service worker was clicked or dismissed
   useEffect(() => {
+    if (!("serviceWorker" in navigator)) return;
+
+    const onMessage = (event: MessageEvent) => {
+      if (event.data?.type !== "station-notification-closed" || typeof event.data.station !== "string") return;
+
+      notifiedStations.current.delete(event.data.station);
+      setWatchedStations((stations) => stations.filter((x) => x !== event.data.station));
+    };
+
+    navigator.serviceWorker.addEventListener("message", onMessage);
+    navigator.serviceWorker.startMessages();
+
+    return () => navigator.serviceWorker.removeEventListener("message", onMessage);
+  }, [setWatchedStations]);
+
+  useEffect(() => {
+    // forget the stations that are no longer watched, so watching them again notifies again
+    notifiedStations.current.forEach((name) => {
+      if (!watchedStations.includes(name)) notifiedStations.current.delete(name);
+    });
+
     if (data?.result) {
       data.data.forEach((station) => {
         // send notification if station is free
         if (
           station.DispatchedBy.length === 0 &&
           watchedStations.includes(station.Name) &&
-          !stationNotifications.current[station.Name]
+          !notifiedStations.current.has(station.Name)
         ) {
+          // marked first, a failing notification must not be retried (and the snackbar repeated) on every update
+          notifiedStations.current.add(station.Name);
+
           enqueueSnackbar(`Station ${station.Name} is free`, { variant: "info" });
 
-          const notification = new Notification(`Station ${station.Name} is free`, {
-            body: `Station ${station.Name} is free on the ${
-              selectedServer?.ServerName ?? "en1"
-            } server`,
-            icon: station.MainImageURL,
-            requireInteraction: true,
-          });
-
-          // only available in secure context
-          notification.addEventListener("close", () => {
-            delete stationNotifications.current[station.Name];
-            setWatchedStations((stations) => stations.filter((x) => x !== station.Name));
-            window.open(getStationEDRLink(station, selectedServer?.ServerCode ?? "en1"), "_blank");
-          });
-
-          stationNotifications.current[station.Name] = notification;
+          showStationFreeNotification(
+            station,
+            selectedServer?.ServerName ?? "en1",
+            getStationEDRLink(station, selectedServer?.ServerCode ?? "en1"),
+            () => {
+              notifiedStations.current.delete(station.Name);
+              setWatchedStations((stations) => stations.filter((x) => x !== station.Name));
+            }
+          );
         }
       });
     }
