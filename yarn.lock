@@ -804,89 +804,89 @@
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@sentry/browser-utils@11.12.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@sentry/browser-utils/-/browser-utils-11.12.0.tgz#d786e798adfff5b3fab0d766cdbd518e230305b6"
-  integrity sha512-OttAHqf557R1gfLQRqb/dpGUK1UQd21qkeeN0KA/ThuymYXTNY+qTpJIOqmzgpk6fOmE922mTT6xmnMEiGYZBQ==
+"@sentry/browser-utils@11.13.0":
+  version "11.13.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser-utils/-/browser-utils-11.13.0.tgz#4988268785b62a530ad64ab0bc23b26fc60696b0"
+  integrity sha512-Ivdvp/jq3ykimisXxOKWWwrAL0mfZEFgTST8RUJKZ75RIOTT2uZuffqC1YwXYXobElIpgZOSLjdpXhCIepTCTA==
   dependencies:
-    "@sentry/conventions" "^0.32.0"
-    "@sentry/core" "11.12.0"
+    "@sentry/conventions" "^0.33.0"
+    "@sentry/core" "11.13.0"
     web-vitals "^6.2.3"
 
-"@sentry/browser@11.12.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-11.12.0.tgz#29a3305c5b1973dfc53ac57db1b127a69548eddb"
-  integrity sha512-oiSs0ZZQGVLVLASxTk/Z+MW4cGOHhC65IKc3B//M54eaZEa4p6JqP2DM++ta4IqDQx8+lSD6+TglAIsHBdSyVQ==
+"@sentry/browser@11.13.0":
+  version "11.13.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-11.13.0.tgz#a64ea5ebb856e1d46db193270b020b82ada8a02b"
+  integrity sha512-PfoIXdu9zCr8X4DtneQuPzEPMGuw2Ue1hWj+d9x+OOzvqpQSzh8LylnxHpBoyuQYZdHS/Bm7knBzpBHJYQ5l7w==
   dependencies:
-    "@sentry/browser-utils" "11.12.0"
-    "@sentry/conventions" "^0.32.0"
-    "@sentry/core" "11.12.0"
-    "@sentry/feedback" "11.12.0"
-    "@sentry/replay" "11.12.0"
-    "@sentry/replay-canvas" "11.12.0"
+    "@sentry/browser-utils" "11.13.0"
+    "@sentry/conventions" "^0.33.0"
+    "@sentry/core" "11.13.0"
+    "@sentry/feedback" "11.13.0"
+    "@sentry/replay" "11.13.0"
+    "@sentry/replay-canvas" "11.13.0"
 
-"@sentry/bundler-plugins@11.12.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@sentry/bundler-plugins/-/bundler-plugins-11.12.0.tgz#2f3fc21d2f875fb3bc95b16fbc259e728e978825"
-  integrity sha512-7vBXoHMoYKjYu08anYv5I0nplSWOfQyl7BqV0VOrLxEtGoOpk1+DxL2dyBiaWoAtISkaqJEV/ft813OsCGuuMg==
+"@sentry/bundler-plugins@11.13.0":
+  version "11.13.0"
+  resolved "https://registry.yarnpkg.com/@sentry/bundler-plugins/-/bundler-plugins-11.13.0.tgz#d2a44683e07e1158d9232fed3d0a5481ead58fe9"
+  integrity sha512-MYH2ygxSQDf6Iuh+EmQUX4+ygWKQOWDk4j3N8O2qA9hV/8FDlUa6NSSZh30prWsSas2KJh3+63mZHwltbYYF+g==
   dependencies:
-    "@sentry/core" "11.12.0"
+    "@sentry/core" "11.13.0"
     dotenv "^17.4.2"
     glob "^14.0.3"
     magic-string "~0.30.8 || ^1.0.0"
     oxc-parser "^0.152.0"
     sentry "^0.49.0"
 
-"@sentry/conventions@^0.32.0":
-  version "0.32.0"
-  resolved "https://registry.yarnpkg.com/@sentry/conventions/-/conventions-0.32.0.tgz#9e3fc0b765aac28e39d5edfeb93ddb437effe4ac"
-  integrity sha512-WkSQcDhUUsz1SwxR23LpmyPKba+dgxxiH0DWV4VSM9yaAvhhl87ppW2Ts3g4piIKCVflc31aJeWy+biUbYfsMQ==
+"@sentry/conventions@^0.33.0":
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/@sentry/conventions/-/conventions-0.33.0.tgz#1e8dea423806a3c730a702f8c7392598fa166bf3"
+  integrity sha512-5aa3g/VOnMoL8yHbfkYIWBYC3BLgMudgRNBTKNMrcMEj1mE9aKIt/CYCG7sasijhiSU4nTcSEzyM2voIVzLCng==
 
-"@sentry/core@11.12.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-11.12.0.tgz#a1d80dba66a2d9cb0219c191179c4b38c51e0121"
-  integrity sha512-HKER7EcRpPPgC8mLRe5BzP6njfRYFZ53BFLZxVp1whWbY6lp/b2mvTBk4q6+rKsUFhLhRDsd6jL8y/8ddEWv6A==
+"@sentry/core@11.13.0":
+  version "11.13.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-11.13.0.tgz#5d6db4f75b5bbff0549b23c48caf4a518e2e72bc"
+  integrity sha512-dRJI8RwAZvtEtW62awlZdSt8EN6fuyb3cTED78A/IgIkhNcAhhR41x+B2GuMOOJ5lrb/dOCuWLBhZwwyHW2/pg==
   dependencies:
-    "@sentry/conventions" "^0.32.0"
+    "@sentry/conventions" "^0.33.0"
 
-"@sentry/feedback@11.12.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@sentry/feedback/-/feedback-11.12.0.tgz#8dd7ee0c37246cf7c6a5cf4b3302b2c030679a5e"
-  integrity sha512-vYOIeby3tVoKZ/q70D1NJ48D4APMVcojyvCjlaZkFOQR6DIEsOjF/uC9MkhnCP3cpa4oADdMatsIpkhlPM+qng==
+"@sentry/feedback@11.13.0":
+  version "11.13.0"
+  resolved "https://registry.yarnpkg.com/@sentry/feedback/-/feedback-11.13.0.tgz#1123ca89a391d92bd51ad401def4b42fa7507325"
+  integrity sha512-2K5S7DP1iPs7TxHIhaldzXrdxGlKUn20+isyBh1Z38IuwM15QOXCREnqtP4knmn4LOXhssL51cOrl2p74TdzZw==
   dependencies:
-    "@sentry/core" "11.12.0"
+    "@sentry/core" "11.13.0"
 
 "@sentry/react@^11.0.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-11.12.0.tgz#fa534c664f686462ad8a81dcd5fa7c4a1add779d"
-  integrity sha512-tNr2yyfj//7Wrn0scoauR8D9FG93PWSRPQakWuvlVXGIXEAx/pwVkOjWYKUD1Xhyo8Hbvu5f6ddQ0+StsL3zyw==
+  version "11.13.0"
+  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-11.13.0.tgz#1a44e01a137becaf303eec69f4d2e261571a1e5f"
+  integrity sha512-/HSK0IefnBw9JFK/3UDiYIRbqL9yMhg+0A2w0LBl0t30XyHIiynn6tOsLUuPapUfWd6ULPBp+STFFfsfbQMtCg==
   dependencies:
-    "@sentry/browser" "11.12.0"
-    "@sentry/conventions" "^0.32.0"
-    "@sentry/core" "11.12.0"
+    "@sentry/browser" "11.13.0"
+    "@sentry/conventions" "^0.33.0"
+    "@sentry/core" "11.13.0"
 
-"@sentry/replay-canvas@11.12.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@sentry/replay-canvas/-/replay-canvas-11.12.0.tgz#5103b5175bc86e9df15de9b86ce22cbc024f8a10"
-  integrity sha512-kx9Q3TY8pMp0b12fpcR0tziGoEW7Z8PpFKncmzD9XYWE3YzMt//B+cjkR+vmmZSUVxOuQATYDFp9c1jRTnbrug==
+"@sentry/replay-canvas@11.13.0":
+  version "11.13.0"
+  resolved "https://registry.yarnpkg.com/@sentry/replay-canvas/-/replay-canvas-11.13.0.tgz#43e08428dd0fe4fd66695081bf461b258a0ab856"
+  integrity sha512-xIDk6GKBU0IPCo7cSzSWHF8QlN24GdL7WLiTTre/XWFmFznwBBG60Y7lN+pnN2SNxmtmhHHp9WhjqcMAhZ096g==
   dependencies:
-    "@sentry/core" "11.12.0"
-    "@sentry/replay" "11.12.0"
+    "@sentry/core" "11.13.0"
+    "@sentry/replay" "11.13.0"
 
-"@sentry/replay@11.12.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-11.12.0.tgz#b39ddf4da1a85d547332ceafbd3168767a9eed0e"
-  integrity sha512-SF1064TKmOvIQTKo8WelVB34IZWtYtrflInsydPeB9jMTpy2iE3LqKRizDJr3YivjMUPDgIGn67b+0kaxiwQ4g==
+"@sentry/replay@11.13.0":
+  version "11.13.0"
+  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-11.13.0.tgz#b0a91307415834ac8530714c41947a27a1ad1579"
+  integrity sha512-nLaAAbC2XZb6p0HQNM7u+pqB3xUbhojX+NXCVtYB/gFUvy8cwroJJVDov1coQnHrASIZ8X1yhOJG5d2k9/K/yQ==
   dependencies:
-    "@sentry/browser-utils" "11.12.0"
-    "@sentry/core" "11.12.0"
+    "@sentry/browser-utils" "11.13.0"
+    "@sentry/core" "11.13.0"
 
 "@sentry/vite-plugin@^11.0.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@sentry/vite-plugin/-/vite-plugin-11.12.0.tgz#37ed145f00d2f4f1989854d2929ef89b3fe8bd4b"
-  integrity sha512-0K6+9fT80/3I6VW6V2C6w8GvQWaZiEW+CsaTPBStPzb0YwjOTwdI1mfE+Omw+NLwVOv/ZgsuOl5BPbcrU1qaNA==
+  version "11.13.0"
+  resolved "https://registry.yarnpkg.com/@sentry/vite-plugin/-/vite-plugin-11.13.0.tgz#4b734a764a9d6743f051a9cf7e7f51ff8aadef62"
+  integrity sha512-PJj5VGpgX68xjhVcsP5kH+bL+4LFpa7oy9Kp/LixoJKdL1o/MFeo/eWauu80FYa4NBN09MDNEdjS9/KVXL1tEA==
   dependencies:
-    "@sentry/bundler-plugins" "11.12.0"
+    "@sentry/bundler-plugins" "11.13.0"
 
 "@swc/core-darwin-arm64@1.15.47":
   version "1.15.47"
@@ -2535,9 +2535,9 @@ glob-parent@^6.0.2:
     is-glob "^4.0.3"
 
 glob@^14.0.3:
-  version "14.0.4"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-14.0.4.tgz#008a99c94b6e617b5f13fe9784adef2a78af977e"
-  integrity sha512-mMiwNKoJZ4HAIRVJxotO6LsNRReA30gQwP9E2/p94tfLv+jygCNpKDjhhSL6OLY6LE371EZm5EAf7RpYuUqlsw==
+  version "14.0.6"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-14.0.6.tgz#40f3f37b4bbd06ad274ba87be801b59dcea71164"
+  integrity sha512-OwXjVP2svY5EyLY75Vek96C8qK43gqrt4xsZ+qSILdnaEiJPXkd62mcfUSNx/TQErQRdu5uM5kF67sfONragKw==
   dependencies:
     minimatch "^11.0.5"
     minipass "^7.1.3"
